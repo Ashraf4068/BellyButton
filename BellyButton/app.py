@@ -17,10 +17,12 @@ from flask import (
 app = Flask(__name__)
 
 # setup database
-engine = create_engine("sqlite:///db/belly_button_biodiversity.sqlite", echo=False)
+# engine = create_engine("sqlite:///db/belly_button_biodiversity.sqlite", echo=False)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/bellybutton.sqlite"
+db = SQLAlchemy(app)
 
 Base = automap_base()
-Base.prepare(engine, reflect=True)
+Base.prepare(db.engine, reflect=True)
 Sample = Base.classes.samples
 OTU = Base.classes.otu
 Metadata = Base.classes.samples_metadata
